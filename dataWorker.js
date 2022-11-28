@@ -42,13 +42,12 @@ personal.push({
   name:'Betty',
   gender:'Femenino',
   fixedCostsMonth: 500,
-  name: 'Juanita',
-  jobs: [
-    { year: 2017, company: 'Freelance', salary: 1550, hoursWeek: 0},
+  jobs:[
+    { year: 2017, company: 'Freelance', salary: 1050, hoursWeek: 0},
     { year: 2018, company: 'Freelance', salary: 1800, hoursWeek: 0},
     { year: 2019, company: 'Industrias Mokepon', salary: 1050, hoursWeek: 48},
     { year: 2020, company: 'Industrias Mokepon', salary: 1050, hoursWeek: 48},
-    { year: 2021, company: 'Industrias Mokepon', salary: 1250, hoursWeek: 48},
+    { year: 2021, company: 'Industrias Mokepon', salary: 1255, hoursWeek: 48},
     { year: 2022, company: 'Industrias Mokepon', salary: 1250, hoursWeek: 48},
     { year: 2023, company: 'Industrias Mokepon', salary: 1250, hoursWeek: 48},
   ],
@@ -296,13 +295,13 @@ personal.push({
   gender:'Femenino',
   fixedCostsMonth: 1000,
   jobs: [
-    { year: 2017, company: 'Daily Planet', salary: 3500, hoursWeek: 48},
-    { year: 2018, company: 'Daily Planet', salary: 3500, hoursWeek: 48},
-    { year: 2019, company: 'Daily Planet', salary: 3700, hoursWeek: 48},
-    { year: 2020, company: 'Daily Planet', salary: 3800, hoursWeek: 48},
-    { year: 2021, company: 'Daily Planet', salary: 4000, hoursWeek: 48},
-    { year: 2022, company: 'Daily Planet', salary: 4050, hoursWeek: 48},
-    { year: 2023, company: 'Daily Planet', salary: 4050, hoursWeek: 48},
+    { year: 2017, company: 'Daily Planet', salary: 35000, hoursWeek: 48},
+    { year: 2018, company: 'Daily Planet', salary: 35000, hoursWeek: 48},
+    { year: 2019, company: 'Daily Planet', salary: 37000, hoursWeek: 48},
+    { year: 2020, company: 'Daily Planet', salary: 38000, hoursWeek: 48},
+    { year: 2021, company: 'Daily Planet', salary: 40000, hoursWeek: 48},
+    { year: 2022, company: 'Daily Planet', salary: 40500, hoursWeek: 48},
+    { year: 2023, company: 'Daily Planet', salary: 40500, hoursWeek: 48},
   ],
 });
 personal.push({
