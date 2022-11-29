@@ -52,6 +52,7 @@ personal.push({
   ],
 });
 personal.push({
+  seguroVida: 'onp',
   name: 'Alex',
   gender:'Masculino',
   fixedCostsMonth: 510,
@@ -66,6 +67,7 @@ personal.push({
   ],
 });
 personal.push({
+  seguroVida: 'afp',
   name: 'Nath',
   gender:'Femenino',
   fixedCostsMonth: 700,
@@ -80,6 +82,7 @@ personal.push({
   ],
 });
 personal.push({
+  seguroVida: 'onp',
   name: 'Julia',
   gender:'Femenino',
   fixedCostsMonth: 880,
@@ -94,6 +97,7 @@ personal.push({
   ],
 });
 personal.push({
+  seguroVida: 'afp',
   name: 'Jonatan',
   gender:'Masculino',
   fixedCostsMonth: 810,
@@ -108,6 +112,7 @@ personal.push({
   ],
 });
 personal.push({
+  seguroVida: 'onp',
   name: 'Armando',
   gender:'Masculino',
   fixedCostsMonth: 920,
@@ -122,6 +127,7 @@ personal.push({
   ],
 });
 personal.push({
+  seguroVida: 'afp',
   name: 'Dilan',
   gender:'Masculino',
   fixedCostsMonth: 750,
@@ -136,6 +142,7 @@ personal.push({
   ],
 });
 personal.push({
+  seguroVida: 'onp',
   name: 'Zamir',
   gender:'Masculino',
   fixedCostsMonth: 560,
@@ -150,6 +157,7 @@ personal.push({
   ],
 });
 personal.push({
+  seguroVida: 'afp',
   name: 'Daniela',
   gender:'Femenino',
   fixedCostsMonth: 730,
@@ -164,6 +172,7 @@ personal.push({
   ],
 });
 personal.push({
+  seguroVida: 'afp',
   name: 'Daniel',
   gender:'Masculino',
   fixedCostsMonth: 870,
@@ -178,6 +187,7 @@ personal.push({
   ]
 })
 personal.push({
+  seguroVida: 'afp',
   name: 'Rigoberto',
   gender:'Masculino',
   fixedCostsMonth: 650,
@@ -192,6 +202,7 @@ personal.push({
   ],
 });
 personal.push({
+  seguroVida: 'onp',
   name: 'Alicia',
   gender:'Femenino',
   fixedCostsMonth: 440,
@@ -206,6 +217,7 @@ personal.push({
   ],
 });
 personal.push({
+  seguroVida: 'afp',
   name: 'Teodoro',
   gender:'Masculino',
   fixedCostsMonth: 880,
@@ -220,6 +232,7 @@ personal.push({
   ],
 });
 personal.push({
+  seguroVida: 'afp',
   name: 'Bruce',
   gender:'Masculino',
   fixedCostsMonth: 1500,
@@ -234,6 +247,7 @@ personal.push({
   ],
 });
 personal.push({
+  seguroVida: 'afp',
   name: 'Alfred',
   gender:'Masculino',
   fixedCostsMonth: 730,
@@ -248,6 +262,7 @@ personal.push({
   ],
 });
 personal.push({
+  seguroVida: 'onp',
   name: 'Clark Kent',
   gender:'Masculino',
   fixedCostsMonth: 880,
@@ -262,6 +277,7 @@ personal.push({
   ],
 });
 personal.push({
+  seguroVida: 'afp',
   name: 'Lois Lane',
   gender:'Femenino',
   fixedCostsMonth: 990,
@@ -276,6 +292,7 @@ personal.push({
   ],
 });
 personal.push({
+  seguroVida: 'onp',
   name: 'Jimmy Olsen',
   gender:'Masculino',
   fixedCostsMonth: 910,
@@ -290,6 +307,7 @@ personal.push({
   ],
 });
 personal.push({
+  seguroVida: 'afp',
   name: 'Perry White',
   gender:'Femenino',
   fixedCostsMonth: 1000,
@@ -304,6 +322,7 @@ personal.push({
   ],
 });
 personal.push({
+  seguroVida: 'afp',
   name: 'Lex Luthor',
   gender:'Masculino',
   fixedCostsMonth: 1500,
