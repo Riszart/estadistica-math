@@ -1,8 +1,5 @@
 /* capasidad de endeudamineto = (ingresos totales - gastos fijos) * 0.35*/ 
 /* capasidad de ahorro = (ingresos totales - gastos fijos) * 0.15*/ 
-/* recoleccion de impuestos */
-/*cts */
-/* ir independiente 36312 dependiente 29050 7uit */
 const retencion = []
 const uit = {
   2017: 4050,
@@ -16,15 +13,16 @@ retencion.push({
   impuesto:{cuarta: 0.08, quinta:{primer:0.08,segunda: 0.14, tercera: 0.17, cuarta: 0.2, quinta: 0.3}},
 })
 retencion.push({
-  esSalud: 0.9,
+  esSalud: 0.09,
 })
 retencion.push({
-  pension:{onp:0.13, afp:{cuentapersonall:0.1, cobroAdministracion:0.0023, seguro:0.0174}},
+  pension:{onp:0.13, afp:{cuentapersonal:0.1, cobroAdministracion:0.0023, seguro:0.0174}},
 })
 
 const personal = []
 
 personal.push({
+  seguroVida: 'onp',
   name:'Juan',
   gender:'Masculino',
   fixedCostsMonth: 600,
@@ -39,6 +37,7 @@ personal.push({
   ]
 })
 personal.push({
+  seguroVida: 'afp',
   name:'Betty',
   gender:'Femenino',
   fixedCostsMonth: 500,
