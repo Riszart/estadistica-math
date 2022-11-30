@@ -10,7 +10,7 @@
 <body>
     <header>
         <div class="head-container">
-            <input class="input-buscar" type="text" name="" id="">
+            <input class="input-buscar" type="text" name="" id="" value="Betty">
             <input class="input-botton" type="button" value="BUSCAR">
         </div>
     </header>
@@ -24,9 +24,7 @@
             <div class="contend-result">
                 <div>
                     <section class="contend-head">
-                        <p>Nombre: <span></span></p>
-                        <p>Tipo de Pension: <span></span></p>
-                        <p>Genero: <span></span></p>
+                        <p>Nombre: <span class="contend-head__nombre"></span></p>
                     </section>
                     <section class="contend-body">
                         <div class="contend-body__year border-white"><span>Año</span></div>
@@ -39,13 +37,14 @@
                         <div class="contend-body__cuenta border-white"><span>Cuenta Personal</span></div>
                         <div class="contend-body__admit border-white"><span>Cobro Administrativo</span></div>
                         <div class="contend-body__seguroPension border-white"><span>Seguro de Pension</span></div>
+                        <div class="contend-body__reductionTotalPension border-white"><span>Total Pension</span></div>
                     </section>
                 </div>
             </div>
         </section>
     </main>
-
-    <script src="./dataWorker.js"></script>
     <script src="./analisis.js"></script>
+    <script src="./dataWorker.js"></script>
+    <script src="./dateIndexSend.js"></script>
 </body>
 </html>

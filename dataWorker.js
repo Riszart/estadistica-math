@@ -7,7 +7,8 @@ const uit = {
   2019: 4200,
   2020: 4300,
   2021: 4400,
-  2022: 4450
+  2022: 4450,
+  2023: 4500
 }
 retencion.push({
   impuesto:{cuarta: 0.08, quinta:{primer:0.08,segunda: 0.14, tercera: 0.17, cuarta: 0.2, quinta: 0.3}},
