@@ -10,24 +10,38 @@
 <body>
     <header>
         <div class="head-container">
-            <input class="input-buscar" type="text" name="" id="" value="Betty">
+            <input class="input-buscar" type="text" name="" id="" value="">
             <input class="input-botton" type="button" value="BUSCAR">
         </div>
     </header>
     <main>
-        <section>
+        <section class="screen-inicio-General">
+            <div class="screen-inicio">
+                <div class="">
+                    <h1 class="">Escriba uno de los mombres existentes, se le mostrar una estadistica, gracias</h1>
+                    <div class="nombre-existentes "></div>
+                </div>
+            </div>
+        </section>
+        <section class="contened inactive">
             <div class="contened-canvas">
-                <div class="botones-control">
+                <div class="botones-control left-style-general">
                     <div class="botones-control__salario boton-left"><span>Salario</span></div>
                     <div class="botones-control__impuesto boton-left"><span>Impuesto</span></div>
                     <div class="botones-control__onpOafp boton-left"><span>AFP o ONP</span></div>
                     <div class="botones-control__seguroSalud boton-left"><span>EsSalud</span></div>
                     <div class="botones-control__allRetencion boton-left"><span>Todos</span></div>
                 </div>
-                <div class="canvas-edit">
+                <div class="canvas-edit ">
                     <canvas id="estadistica" width="800" height="600" class="estadistica-grafica">
                     </canvas>
                 </div> 
+                <div class="leyenda-grafica left-style-general">
+                    <div class="line-salario boton-left"><span>salario</span></div>
+                    <div class="line-impuesto boton-left"><span>impuesto</span></div>
+                    <div class="line-afponp boton-left"><span>Afp o Onp</span></div>
+                    <div class="line-essalud boton-left"><span>Seguro Salud</span></div>
+                </div>
             </div>
         </section>
         <section>
@@ -53,6 +67,10 @@
             </div>
         </section>
     </main>
+    <footer>
+        <h2>Analisis de cuanto retiene la empresa a los trabajadores</h2>
+        <p>Esta basodo en lo que la empresa reduce a los trabajadores por concepto de impuesto, salud y de jubilacion</p>
+    </footer>
     <script src="./analisis.js"></script>
     <script src="./dataWorker.js"></script>
     <script src="./dateIndexSend.js"></script>

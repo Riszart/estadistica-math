@@ -7,6 +7,9 @@ const seguroPension = document.querySelector('.contend-body__seguroPension')
 const reductionTotalPension = document.querySelector('.contend-body__reductionTotalPension')
 const contendHeadNombre = document.querySelector('.contend-head__nombre')
 const tableContendBody = document.querySelector('.table-contend-body')
+const contenedor = document.querySelector('.contened')
+const screenInicio = document.querySelector('.screen-inicio-General')
+const nombresExistentes = document.querySelector('.nombre-existentes')
 
 const contendBodyRetencion = document.querySelector('.contend-body__retencion')
 const contendBodyOnpAfp = document.querySelector('.contend-body__onpAfp')
@@ -23,7 +26,8 @@ botonControlImpuesto.addEventListener('click',graficoImpuesto)
 botonControlOnpAfp.addEventListener('click',graficoOnpAfp)
 botonControlEsSalud.addEventListener('click',graficoEsSalud)
 botonControlAllRetencion.addEventListener('click',graficoAll)
-imputButton.addEventListener('click', sendNombre)
+imputButton.addEventListener('click', validacion)
+
 let contextoCanvas
 let arraycomplete
 let year
@@ -40,25 +44,54 @@ let activaCanvasAllRetencion = true
 let nombreData
 let bloqueadorDataAll = true
 
-
+const nombresLista = []
+for(i of personal){
+	nombresLista.push(i.name)
+}
+nombreDataExiste()
+function nombreDataExiste(){
+	for(a of nombresLista){
+		const nombre = document.createElement('p')
+		nombre.innerText = a
+		nombresExistentes.appendChild(nombre)
+	}
+}
+function validacion(){
+	for(i of personal){
+		if(i.name == imputBuscar.value){
+			sendNombre()
+			break
+		}
+		else{
+			alert('fdsfsd')
+			imputBuscar.value = ''
+			break
+		}
+	}
+}
+if(i.name == imputBuscar.value){
+}
 function sendNombre(){
 	if(imputBuscar.value !== nombreData){
+		contenedor.classList.remove('inactive')
+		screenInicio.classList.add('inactive')
 		contexto1.clearRect(0,0,800,600)
 		nombreData = imputBuscar.value
 		tableContendBody.classList.remove('inactive')
 		contendHeadNombre.innerText = imputBuscar.value
-		arraycomplete = CalculosEstadisticos.retencionGeneral(imputBuscar.value)
-		year = arraycomplete[3]
-		compania = arraycomplete[4]
-		salario = arraycomplete[5]
-		impuesto = arraycomplete[0]
-		onpAfp = arraycomplete[2]
-		seguroSalud = arraycomplete[1]
+		year = CalculosEstadisticos.retencionGeneral(imputBuscar.value)[3]
+		compania = CalculosEstadisticos.retencionGeneral(imputBuscar.value)[4]
+		salario = CalculosEstadisticos.retencionGeneral(imputBuscar.value)[5]
+		impuesto = CalculosEstadisticos.retencionGeneral(imputBuscar.value)[0]
+		onpAfp = CalculosEstadisticos.retencionGeneral(imputBuscar.value)[2]
+		seguroSalud = CalculosEstadisticos.retencionGeneral(imputBuscar.value)[1]
 		activaCanvasSalario = true
 		graficoSalario()
 		addTableDataDown()
 	}
+
 }
+
 function graficoSalario(){
 	if(activaCanvasSalario == true){
 		contexto2.clearRect(0,0,800,600)
@@ -135,31 +168,39 @@ function graficoAll(){
 		contexto3.clearRect(0,0,800,600)
 		contexto4.clearRect(0,0,800,600)
 		contextoCanvas = contexto5
-		bloqueadorDataAll = true
-		cuadroEstadistico(year,salario)
-		dibujarEstadisticaData(year,impuesto,'blue')
+		bloqueadorDataAll = false
+
 		const onpAfpArray = []
 		for(a of onpAfp){
 			onpAfpArray.push(a.reduce((j,r)=>j+r)*12)
 		}
-		dibujarEstadisticaData(year,onpAfpArray,'yellow')
-		dibujarEstadisticaData(year,seguroSalud,'green')
+		let valorMax = Math.max(onpAfpArray.reduce((c,d)=>Math.max(c,d)),impuesto.reduce((c,d)=>Math.max(c,d)))
+		cuadroEstadistico(year,salario,valorMax)
+		dibujarEstadisticaData(year,onpAfpArray,'yellow',valorMax)
+		dibujarEstadisticaData(year,seguroSalud,'green',valorMax)
+		dibujarEstadisticaData(year,impuesto,'blue',valorMax)
 		activaCanvasAllRetencion = false
 		activaCanvasEsSalud = true
 		activaCanvasSalario = true
 		activaCanvasImpusto = true
 		activaCanvasOnpAfp = true
-		bloqueadorDataAll = false
+		bloqueadorDataAll = true
 	}
 }
-function cuadroEstadistico(yearArray,dataArray){
+function cuadroEstadistico(yearArray,dataArray,valorMax){
 	dibujar(50,50,50,550,2,'white')
 	dibujar(50,550,750,550,2,'white')
 	let spaceYear = 700 / yearArray.length
 	let spaceData = 500 / dataArray.length
 	let x = 0
 	let y = 550
-	let maximoNumber = dataArray.reduce((a,b)=>Math.max(a,b))
+	let maximoNumber
+	if(bloqueadorDataAll == true){
+		maximoNumber = dataArray.reduce((a,b)=>Math.max(a,b))
+	}
+	else{
+		maximoNumber = valorMax
+	}
 	let numberRefe = 0
 	for(a of yearArray){
 		x = x + spaceYear
@@ -173,17 +214,17 @@ function cuadroEstadistico(yearArray,dataArray){
 		dibujarText((numberRefe).toFixed(2),25,y)
 	}
 }
-function dibujarEstadisticaData(yearArray,dataArray,color){
+function dibujarEstadisticaData(yearArray,dataArray,color,valorMax){
 	let x = 0
-	let referencia
+	let referencia = 0
 	const cordenadasx = []
 	const cordenadasy = []
 
 	for(i = 0; i<dataArray.length ;i++){
-		if(bloqueadorDataAll == false){
+		if(bloqueadorDataAll == true){
 			referencia = dataArray.reduce((a,b)=>Math.max(a,b))/100
 		}else{
-			referencia = salario.reduce((a,b)=>Math.max(a,b))/100
+			referencia = valorMax/100
 		}
 		x = x + 700 / yearArray.length
 		let y = ((100-(dataArray[i]/referencia))*5)+50

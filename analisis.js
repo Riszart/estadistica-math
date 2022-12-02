@@ -38,8 +38,8 @@ CalculosEstadisticos.retencionGeneral = function retencionGeneral(nombre){
 	const yearArray = []
 	const CompaniaArray = []
 	const salaryArray = []
-	for(i of personal){
-		if(i.name == nombre){
+	//for(i of personal){
+	//	if(i.name == nombre){
 			for(a of i.jobs){
 				for(b of retencion){
 				  if(a.company == 'Freelance'){
@@ -89,7 +89,6 @@ CalculosEstadisticos.retencionGeneral = function retencionGeneral(nombre){
 				}
 			}
 		return [impuestosArray, seguroSaludArray, onpAfpArray, yearArray, CompaniaArray, salaryArray]
-		}
-		//alert('No se encuentra en la base de datos')
-	}
+//		}
+//	}
 }

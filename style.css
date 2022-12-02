@@ -1,7 +1,9 @@
+:root{
+    --color-letter: white
+}
 *{
     margin: 0;
     padding: 0;
-    color: aqua;
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -12,6 +14,9 @@ body{
     background-color: rgb(27, 27, 27);
 }
 header{
+    position: fixed;
+    z-index: 10;
+    top: 0;
     width: 100%;
     height: 100px;
     background-color: black;
@@ -26,6 +31,7 @@ header{
     border: none;
     font-size: 19px;
     border-radius: 10px;
+    color: var(--color-letter);
 }
 .input-botton{
     width: 100px;
@@ -33,8 +39,12 @@ header{
     background-color: rgb(36, 36, 36);
     font-size: 19px;
     border-radius: 10px;
+    color: var(--color-letter);
 }
-.botones-control{
+.input-botton:active{
+    background-color: aliceblue;
+}
+.left-style-general{
     padding: 5px 0;
     display: flex;
     justify-content: center;
@@ -42,8 +52,6 @@ header{
     flex-direction: column;
     gap: 5px;
     position: absolute;
-    top: 200px;
-    left: 15px;
     width: 150px;
     height: 220px;
     border-radius: 15px;
@@ -51,7 +59,16 @@ header{
     box-shadow:  0px 0px 20px 5px #424242,
                  -0px -0px 20px 5px #494949;
 }
+.botones-control{
+    top: 200px;
+    left: 80px;
+}
+.leyenda-grafica{
+    top: 200px;
+    right: 80px;
+}
 .boton-left{
+    font-size: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -60,7 +77,6 @@ header{
     height: 20%;
     border-radius: 5px;
     border: solid rgb(119, 119, 119) 1px;
-    font-weight: bold;
 }
 .boton-left:active{
     background-color: aliceblue;
@@ -70,6 +86,46 @@ header{
     justify-content: center;
     align-items: center;
     margin-top: 35px;
+}
+.contened{
+    margin-top: 130px;
+}
+.screen-inicio{
+    position: absolute;
+    top: 0;
+    color: var(--color-letter);
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.nombre-existentes{
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+    grid-template-rows: repeat(3, 50px);
+    color: burlywood;
+}
+.line-salario span{
+    width: 80%;
+    border-top: solid red 2px;
+    padding-top: 3px;
+}
+.line-impuesto span{
+    width: 80%;
+    border-top: solid Blue 2px;
+    padding-top: 3px;
+}
+.line-afponp span{
+    width: 80%;
+    padding-top: 3px;
+    border-top: solid yellow 2px;
+}
+.line-essalud span{
+    width: 80%;
+    padding-top: 3px;
+    border-top: solid green 2px;
 }
 .canvas-edit{
     height: 600px;
@@ -83,8 +139,10 @@ header{
 }
 .contend-result{
     margin-top: 35px;
+    padding-bottom: 55px;
     width: 100%;
     background-color: black;
+    color: var(--color-letter);
 }
 .table-contend-body{
     
@@ -171,24 +229,13 @@ header{
     grid-row-start: 3;
     grid-row-end: 4;  
 }
-
-
-/*
-.retencion-general{
-    grid-column-start: 4;
-    grid-column-end: 11;
+footer{
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
-}
-.retencion-general__detail{
-    display: grid;
-    grid-template-columns: 150px 1fr 150px;
-}
-.onp-afp{
-    display: flex;
-    flex-direction: column;
-}
-.onp-afp__detail{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    position: absolute;
+    background-color: #424242;
+    height: 150px;
+    width: 100%;
 }
