@@ -31,7 +31,7 @@ CalculosEstadisticos.seguro = function seguro(salario){
 		}
 	}
 }
-CalculosEstadisticos.inpuestos = function inpuestos(nombre){
+CalculosEstadisticos.retencionGeneral = function retencionGeneral(nombre){
 	const impuestosArray = []
 	const seguroSaludArray = []
 	const onpAfpArray = []
