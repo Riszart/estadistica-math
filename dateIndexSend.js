@@ -11,15 +11,20 @@ const contenedor = document.querySelector('.contened')
 const screenInicio = document.querySelector('.screen-inicio-General')
 const nombresExistentes = document.querySelector('.nombre-existentes')
 
-const contendBodyRetencion = document.querySelector('.contend-body__retencion')
-const contendBodyOnpAfp = document.querySelector('.contend-body__onpAfp')
-const contendBodySalud = document.querySelector('.contend-body__salud')
+const contendBodyRetencionAfp = document.querySelector('.contend-body__retencion-afp')
+const contendBodyRetencionOnp = document.querySelector('.contend-body__retencion-onp')
+const contendBodyAfp = document.querySelector('.contend-body__afp')
+const contendBodyOnp = document.querySelector('.contend-body__onp')
+const contendBodySaludOnp = document.querySelector('.contend-body__salud-onp')
+const contendBodySaludAfp = document.querySelector('.contend-body__salud-afp')
+const onpOfAfp = document.querySelector('.onp-Afp')
 
 const botonControlSalario = document.querySelector('.botones-control__salario')
 const botonControlImpuesto = document.querySelector('.botones-control__impuesto')
 const botonControlOnpAfp = document.querySelector('.botones-control__onpOafp')
 const botonControlEsSalud = document.querySelector('.botones-control__seguroSalud')
 const botonControlAllRetencion = document.querySelector('.botones-control__allRetencion')
+const eventError = document.querySelector('.event-error')
 
 botonControlSalario.addEventListener('click',graficoSalario)
 botonControlImpuesto.addEventListener('click',graficoImpuesto)
@@ -43,48 +48,58 @@ let activaCanvasEsSalud = true
 let activaCanvasAllRetencion = true
 let nombreData
 let bloqueadorDataAll = true
+let nombreAbuscar
+let cambioTabla
 
 const nombresLista = []
 for(i of personal){
 	nombresLista.push(i.name)
 }
-nombreDataExiste()
-function nombreDataExiste(){
-	for(a of nombresLista){
-		const nombre = document.createElement('p')
-		nombre.innerText = a
-		nombresExistentes.appendChild(nombre)
-	}
+for(a of nombresLista){
+	const nombre = document.createElement('p')
+	nombre.innerText = a
+	nombresExistentes.appendChild(nombre)
 }
 function validacion(){
+	const elementoDelGrid = document.querySelectorAll('.border-white')
+	if(elementoDelGrid.length>0){
+		for(element of elementoDelGrid){
+			element.remove('.border-white')
+		}
+	}
+	nombreAbuscar = imputBuscar.value
 	for(i of personal){
-		if(i.name == imputBuscar.value){
+		if(i.name == nombreAbuscar){
+			imputBuscar.value = ''
+			console.log(i.seguroVida)
+			cambioTabla = i.seguroVida
 			sendNombre()
+			eventError.classList.add('inactive')
 			break
 		}
 		else{
-			alert('fdsfsd')
 			imputBuscar.value = ''
-			break
+			eventError.classList.remove('inactive')
+			contenedor.classList.add('inactive')
+			tableContendBody.classList.add('inactive')
+			screenInicio.classList.remove('inactive')
 		}
 	}
 }
-if(i.name == imputBuscar.value){
-}
-function sendNombre(){
-	if(imputBuscar.value !== nombreData){
+function sendNombre(){	
+	if(nombreAbuscar !== nombreData){
 		contenedor.classList.remove('inactive')
 		screenInicio.classList.add('inactive')
 		contexto1.clearRect(0,0,800,600)
-		nombreData = imputBuscar.value
+		nombreData = nombreAbuscar
 		tableContendBody.classList.remove('inactive')
-		contendHeadNombre.innerText = imputBuscar.value
-		year = CalculosEstadisticos.retencionGeneral(imputBuscar.value)[3]
-		compania = CalculosEstadisticos.retencionGeneral(imputBuscar.value)[4]
-		salario = CalculosEstadisticos.retencionGeneral(imputBuscar.value)[5]
-		impuesto = CalculosEstadisticos.retencionGeneral(imputBuscar.value)[0]
-		onpAfp = CalculosEstadisticos.retencionGeneral(imputBuscar.value)[2]
-		seguroSalud = CalculosEstadisticos.retencionGeneral(imputBuscar.value)[1]
+		contendHeadNombre.innerText = nombreAbuscar
+		year = CalculosEstadisticos.retencionGeneral(nombreAbuscar)[3]
+		compania = CalculosEstadisticos.retencionGeneral(nombreAbuscar)[4]
+		salario = CalculosEstadisticos.retencionGeneral(nombreAbuscar)[5]
+		impuesto = CalculosEstadisticos.retencionGeneral(nombreAbuscar)[0]
+		onpAfp = CalculosEstadisticos.retencionGeneral(nombreAbuscar)[2]
+		seguroSalud = CalculosEstadisticos.retencionGeneral(nombreAbuscar)[1]
 		activaCanvasSalario = true
 		graficoSalario()
 		addTableDataDown()
@@ -228,7 +243,7 @@ function dibujarEstadisticaData(yearArray,dataArray,color,valorMax){
 		}
 		x = x + 700 / yearArray.length
 		let y = ((100-(dataArray[i]/referencia))*5)+50
-		dibujarText((dataArray[i]).toFixed(2),x,y-10)
+		dibujarText(dataArray[i].toFixed(2),x,y-10)
 		dibujar(x,y,x,y,5,color)
 		cordenadasx.push(x)
 		cordenadasy.push(y)
@@ -237,44 +252,63 @@ function dibujarEstadisticaData(yearArray,dataArray,color,valorMax){
 		dibujar(cordenadasx[i-1],cordenadasy[i-1],cordenadasx[i],cordenadasy[i],1,color)
 	}
 }
-function hideTable(){
-	cuenta.classList.add('inactive')
-	admit.classList.add('inactive')
-	seguroPension.classList.add('inactive')
-	reductionTotalPension.classList.add('inactive')
-}
+
 function addTableDataDown(){
 	if(onpAfp[0].length == 1){
 		for(i= 0; i<year.length; i++){
 			editTable()
 			addData(year[i])
 			addData(compania[i])
-			addData(salario[i])
-			addData(impuesto[i])
+			addData(salario[i].toFixed(2))
+			addData(impuesto[i].toFixed(2))
 			addOnpArray(onpAfp[i])
-			addData(seguroSalud[i])
+			addData(seguroSalud[i].toFixed(2))
 		}
 	}
 	else{
 		for(i= 0; i<year.length; i++){
+			editTable()
 			addData(year[i])
 			addData(compania[i])
-			addData(salario[i])
-			addData(impuesto[i])
+			addData(salario[i].toFixed(2))
+			addData(impuesto[i].toFixed(2))
 			addAfpArray(onpAfp[i])
-			addData(seguroSalud[i])
+			addData(seguroSalud[i].toFixed(2))
 		}
 	}
 }
+
 function editTable(){
-	hideTable()
-	contendBody.style.gridTemplateColumns = '1fr 1fr 1fr 1fr 1fr 1fr'
-	contendBodyRetencion.style.gridColumnEnd = '7'
-	contendBodyOnpAfp.style.gridColumnEnd = '6'
-	contendBodyOnpAfp.style.gridRowEnd = '4'
-	contendBodyOnpAfp.classList.add('border-white')
-	contendBodySalud.style.gridColumnStart = '6'
-	contendBodySalud.style.gridColumnEnd = '7'
+	console.log(cambioTabla)
+	if(cambioTabla == 'onp'){
+		onpOfAfp.innerText = 'ONP'
+		cuenta.classList.add('inactive')
+		admit.classList.add('inactive')
+		seguroPension.classList.add('inactive')
+		reductionTotalPension.classList.add('inactive')
+		contendBody.style.gridTemplateColumns = '1fr 1fr 1fr 1fr 1fr 1fr'
+		contendBodyRetencionAfp.classList.remove('contend-body__retencion-afp')
+		contendBodyRetencionOnp.classList.add('contend-body__retencion-onp')
+		contendBodyAfp.classList.remove('contend-body__afp')
+		contendBodyOnp.classList.add('contend-body__onp')
+		contendBodySaludOnp.classList.add('contend-body__salud-onp')
+		contendBodySaludAfp.classList.remove('contend-body__salud-afp')
+
+	}
+	else if(cambioTabla == 'afp'){
+		onpOfAfp.innerText = 'AFP'
+		cuenta.classList.remove('inactive')
+		admit.classList.remove('inactive')
+		seguroPension.classList.remove('inactive')
+		reductionTotalPension.classList.remove('inactive')
+		contendBody.style.gridTemplateColumns = '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr'
+		contendBodyRetencionAfp.classList.add('contend-body__retencion-afp')
+		contendBodyRetencionOnp.classList.remove('contend-body__retencion-onp')
+		contendBodyAfp.classList.add('contend-body__afp')
+		contendBodyOnp.classList.remove('contend-body__onp')
+		contendBodySaludOnp.classList.remove('contend-body__salud-onp')
+		contendBodySaludAfp.classList.add('contend-body__salud-afp')
+	}
 }
 function addData(data){
 	const addGridDate = document.createElement('div')
@@ -284,15 +318,15 @@ function addData(data){
 }
 function addAfpArray(dataArray){
 	for(a of dataArray){
-		addData(a)
+		addData(a.toFixed(2))
 	}
 	let numberDate = 0
-	dataArray.forEach(element => {numberDate += element});
-	addData(numberDate*12)
+	dataArray.forEach((element) => {numberDate += element})
+	addData((numberDate*12).toFixed(2))
 }
 function addOnpArray(array){
 	for(a of array){
-		addData(a*12)
+		addData((a*12).toFixed(2))
 	}
 }
 // --------------------- estadistico en canvas----------------
