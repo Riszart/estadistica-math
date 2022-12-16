@@ -6,18 +6,18 @@ CalculosEstadisticos.retencionEspesifico = function retencionEspesifico(impuesto
 }
 CalculosEstadisticos.jubilacion = function jubilacion(salarioJubi, tipojubila){
 	const onpAfpDetail = []
-	if(tipojubila == 'onp'){
-		let onp = salarioJubi * retencion[2].pension.onp
-//		console.log('onp: ' + onp)
-		onpAfpDetail.push(onp)
-	}
-	else{
+	if(tipojubila == 'afp'){
 		let totalAfp = retencion[2].pension.afp.cuentapersonal + retencion[2].pension.afp.cobroAdministracion + retencion[2].pension.afp.seguro
 		let afp = salarioJubi * totalAfp
 //		console.log('afp: ' + afp)
 		onpAfpDetail.push(retencion[2].pension.afp.cuentapersonal * salarioJubi) 
 		onpAfpDetail.push(retencion[2].pension.afp.cobroAdministracion * salarioJubi) 
 		onpAfpDetail.push(retencion[2].pension.afp.seguro * salarioJubi) 
+	}
+	else{
+		let onp = salarioJubi * retencion[2].pension.onp
+//		console.log('onp: ' + onp)
+		onpAfpDetail.push(onp)
 	}
 	return onpAfpDetail
 }
@@ -54,7 +54,7 @@ CalculosEstadisticos.retencionGeneral = function retencionGeneral(nombre){
 								CompaniaArray.push(a.company)
 								salaryArray.push(a.salary)
 								seguroSaludArray.push(CalculosEstadisticos.seguro(0))
-								onpAfpArray.push(CalculosEstadisticos.jubilacion(0, 0))
+								onpAfpArray.push(CalculosEstadisticos.jubilacion(0, i.seguroVida))
 							}
 				  	}
 					else{

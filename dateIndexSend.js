@@ -10,6 +10,7 @@ const tableContendBody = document.querySelector('.table-contend-body')
 const contenedor = document.querySelector('.contened')
 const screenInicio = document.querySelector('.screen-inicio-General')
 const nombresExistentes = document.querySelector('.nombre-existentes')
+const selectName = document.querySelector('.select-option-name')
 
 const contendBodyRetencionAfp = document.querySelector('.contend-body__retencion-afp')
 const contendBodyRetencionOnp = document.querySelector('.contend-body__retencion-onp')
@@ -32,6 +33,11 @@ botonControlOnpAfp.addEventListener('click',graficoOnpAfp)
 botonControlEsSalud.addEventListener('click',graficoEsSalud)
 botonControlAllRetencion.addEventListener('click',graficoAll)
 imputButton.addEventListener('click', validacion)
+
+selectName.addEventListener('click', selecionar)
+function selecionar(){
+	imputBuscar.value = selectName.value
+}
 
 let contextoCanvas
 let arraycomplete
@@ -59,8 +65,14 @@ for(a of nombresLista){
 	const nombre = document.createElement('p')
 	nombre.innerText = a
 	nombresExistentes.appendChild(nombre)
+
+	const crearElementoName = document.createElement('option')
+	selectName.appendChild(crearElementoName)
+	crearElementoName.innerText = a
 }
+
 function validacion(){
+	selectName.value = ''
 	const elementoDelGrid = document.querySelectorAll('.border-white')
 	if(elementoDelGrid.length>0){
 		for(element of elementoDelGrid){
@@ -71,10 +83,10 @@ function validacion(){
 	for(i of personal){
 		if(i.name == nombreAbuscar){
 			imputBuscar.value = ''
-			console.log(i.seguroVida)
 			cambioTabla = i.seguroVida
 			sendNombre()
 			eventError.classList.add('inactive')
+			selectName.classList.remove('inactive')
 			break
 		}
 		else{
@@ -279,7 +291,6 @@ function addTableDataDown(){
 }
 
 function editTable(){
-	console.log(cambioTabla)
 	if(cambioTabla == 'onp'){
 		onpOfAfp.innerText = 'ONP'
 		cuenta.classList.add('inactive')

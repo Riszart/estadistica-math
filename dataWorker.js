@@ -23,21 +23,6 @@ retencion.push({
 const personal = []
 
 personal.push({
-  seguroVida: 'onp',
-  name:'Juan',
-  gender:'Masculino',
-  fixedCostsMonth: 600,
-  jobs:[
-    {year: 2017 ,company: 'Gloria', salary: 1050, hoursWeek: 48, daysWork: 5},
-    {year: 2018 ,company: 'Gloria', salary: 1150, hoursWeek: 48, daysWork: 5},
-    {year: 2019 ,company: 'Gloria', salary: 1250, hoursWeek: 48, daysWork: 5},
-    {year: 2020 ,company: 'Laive', salary: 1050, hoursWeek: 48, daysWork: 5},
-    {year: 2021 ,company: 'Laive', salary: 1300, hoursWeek: 48, daysWork: 5},
-    {year: 2022 ,company: 'Laive', salary: 1250, hoursWeek: 48, daysWork: 5},
-    {year: 2023 ,company: 'Laive', salary: 1250, hoursWeek: 48, daysWork: 5},
-  ]
-})
-personal.push({
   seguroVida: 'afp',
   name:'Betty',
   gender:'Femenino',
@@ -143,7 +128,7 @@ personal.push({
   ],
 });
 personal.push({
-  seguroVida: 'onp',
+  seguroVida: 'afp',
   name: 'Zamir',
   gender:'Masculino',
   fixedCostsMonth: 560,
@@ -173,7 +158,7 @@ personal.push({
   ],
 });
 personal.push({
-  seguroVida: 'afp',
+  seguroVida: 'onp',
   name: 'Daniel',
   gender:'Masculino',
   fixedCostsMonth: 870,
@@ -232,6 +217,21 @@ personal.push({
     { year: 2023, company: 'Freelance', salary: 1850, hoursWeek: 0},
   ],
 });
+personal.push({
+  seguroVida: 'onp',
+  name:'Juan',
+  gender:'Masculino',
+  fixedCostsMonth: 600,
+  jobs:[
+    {year: 2017 ,company: 'Gloria', salary: 1050, hoursWeek: 48, daysWork: 5},
+    {year: 2018 ,company: 'Gloria', salary: 1150, hoursWeek: 48, daysWork: 5},
+    {year: 2019 ,company: 'Gloria', salary: 1250, hoursWeek: 48, daysWork: 5},
+    {year: 2020 ,company: 'Laive', salary: 1050, hoursWeek: 48, daysWork: 5},
+    {year: 2021 ,company: 'Laive', salary: 1300, hoursWeek: 48, daysWork: 5},
+    {year: 2022 ,company: 'Laive', salary: 1250, hoursWeek: 48, daysWork: 5},
+    {year: 2023 ,company: 'Laive', salary: 1250, hoursWeek: 48, daysWork: 5},
+  ]
+})
 personal.push({
   seguroVida: 'afp',
   name: 'Bruce',
