@@ -92,3 +92,18 @@ CalculosEstadisticos.retencionGeneral = function retencionGeneral(nombre){
 //		}
 //	}
 }
+CalculosEstadisticos.dataGeneralEmpresa = function dataGeneralEmpresa(){
+	const empresaYear = {}
+	for(item of personal){
+		for(i of item.jobs){
+			if(!empresaYear[i.company]){
+				empresaYear[i.company] = {}
+			}
+			if(!empresaYear[i.company][i.year]){
+				empresaYear[i.company][i.year] = []
+			}
+			empresaYear[i.company][i.year].push(item.name)
+		}
+	}
+	return empresaYear
+}

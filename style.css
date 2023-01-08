@@ -13,6 +13,27 @@
 body{
     background-color: rgb(27, 27, 27);
 }
+.container-selection{
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100px;
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    color: white;
+}
+.container-selection div{
+    padding: 15px;
+    border-radius: 5px;
+}
+.container-selection div:hover{
+    background-color: rgb(43, 43, 43);
+}
+.container-selection__empresa:active{
+    background-color: #deb887;
+}
 header{
     position: fixed;
     z-index: 10;

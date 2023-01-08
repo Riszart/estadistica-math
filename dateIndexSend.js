@@ -27,6 +27,15 @@ const botonControlEsSalud = document.querySelector('.botones-control__seguroSalu
 const botonControlAllRetencion = document.querySelector('.botones-control__allRetencion')
 const eventError = document.querySelector('.event-error')
 
+const selectionEmpresa = document.querySelector(".container-selection__empresa")
+const selectionPersonal = document.querySelector(".container-selection__personal")
+const botonControl = document.querySelector(".botones-control")
+const leyendaGrafica = document.querySelector(".leyenda-grafica")
+
+const editUno = document.querySelector(".edit-uno")
+const editDos = document.querySelector(".edit-dos")
+const editTres = document.querySelector(".edit-tres")
+
 botonControlSalario.addEventListener('click',graficoSalario)
 botonControlImpuesto.addEventListener('click',graficoImpuesto)
 botonControlOnpAfp.addEventListener('click',graficoOnpAfp)
@@ -38,6 +47,40 @@ selectName.addEventListener('click', selecionar)
 function selecionar(){
 	imputBuscar.value = selectName.value
 }
+
+selectionEmpresa.addEventListener('click', activeMainEmpresa)
+selectionPersonal.addEventListener('click', activeMainPersonal)
+function activeMainEmpresa(){
+	checkempresa = true
+	removeClass()
+	listNameArrays(nombreEmpresa)
+	editUno.innerText = "Analisis del personal de la empresa empreada en el año"
+	editDos.innerText = "basado en lo general de la epleabilidad de las empresa"
+	editTres.innerText = "Escriba un nombre de la empresa"
+	botonControl.classList.add('inactive')
+	leyendaGrafica.classList.add('inactive')
+	selectionEmpresa.style.backgroundColor = "#deb887"
+	selectionEmpresa.style.color = "black"
+	selectionPersonal.style.backgroundColor = "black"
+	selectionPersonal.style.color = "white"
+}
+function activeMainPersonal(){
+	checkempresa = false
+	removeClass()
+	listNameArrays(nombresLista)
+	editUno.innerText = "Analisis de cuanto retiene la empresa a los trabajadores"
+	editDos.innerText = "Esta basodo en lo que la empresa reduce a los trabajadores por concepto de impuesto, salud y de jubilacion"
+	editTres.innerText = "Escriba uno de los mombres existentes, se le mostrar una estadistica, gracias"
+	botonControl.classList.remove('inactive')
+	leyendaGrafica.classList.remove('inactive')
+	selectionPersonal.style.backgroundColor = "#deb887"
+	selectionPersonal.style.color = "black"
+	selectionEmpresa.style.backgroundColor = "black"
+	selectionEmpresa.style.color = "white"
+
+}
+
+const dataEmpresa = CalculosEstadisticos.dataGeneralEmpresa()
 
 let contextoCanvas
 let arraycomplete
@@ -56,53 +99,86 @@ let nombreData
 let bloqueadorDataAll = true
 let nombreAbuscar
 let cambioTabla
+let checkempresa
 
 const nombresLista = []
+const nombreEmpresa = Object.keys(dataEmpresa)
+
 for(i of personal){
 	nombresLista.push(i.name)
 }
-for(a of nombresLista){
-	const nombre = document.createElement('p')
-	nombre.innerText = a
-	nombresExistentes.appendChild(nombre)
-
-	const crearElementoName = document.createElement('option')
-	selectName.appendChild(crearElementoName)
-	crearElementoName.innerText = a
+function removeClass(){
+	removeElemento(document.querySelectorAll(".nombre-empresa-persona"))
+}
+function removeElemento(element){
+	element.forEach(i=>i.remove())
+}
+function listNameArrays(arrayName){
+	for(a of arrayName){
+		const nombre = document.createElement('p')
+		nombre.classList.add("nombre-empresa-persona")
+		nombre.innerText = a
+		nombresExistentes.appendChild(nombre)
+	
+		const crearElementoName = document.createElement('option')
+		selectName.appendChild(crearElementoName)
+		crearElementoName.innerText = a
+	}
 }
 
 function validacion(){
+	removeElemento(document.querySelectorAll('.border-white'))
 	selectName.value = ''
-	const elementoDelGrid = document.querySelectorAll('.border-white')
-	if(elementoDelGrid.length>0){
-		for(element of elementoDelGrid){
-			element.remove('.border-white')
-		}
-	}
+	let itemNombre
 	nombreAbuscar = imputBuscar.value
-	for(i of personal){
-		if(i.name == nombreAbuscar){
-			imputBuscar.value = ''
-			cambioTabla = i.seguroVida
-			sendNombre()
-			eventError.classList.add('inactive')
-			selectName.classList.remove('inactive')
-			break
-		}
-		else{
-			imputBuscar.value = ''
-			eventError.classList.remove('inactive')
-			contenedor.classList.add('inactive')
-			tableContendBody.classList.add('inactive')
-			screenInicio.classList.remove('inactive')
+	if(checkempresa == true){
+		itemNombre = nombreEmpresa
+		for(a of itemNombre){
+			if(a == nombreAbuscar){
+				imputBuscar.value = ''
+				eventError.classList.add('inactive')
+				selectName.classList.remove('inactive')
+				contenedor.classList.remove('inactive')
+				screenInicio.classList.add('inactive')
+				tableContendBody.classList.add('inactive')
+				graficarEmpresaData(nombreAbuscar)
+				break
+			}
+			else{
+				error()
+			}
 		}
 	}
+	else{
+		itemNombre = personal
+		for(i of itemNombre){
+			if(i.name == nombreAbuscar){
+				removeCanvas()
+				imputBuscar.value = ''
+				cambioTabla = i.seguroVida
+				sendNombre()
+				eventError.classList.add('inactive')
+				selectName.classList.remove('inactive')
+				break
+			}
+			else{
+				error()
+			}
+		}
+	}
+}
+function error(){
+	imputBuscar.value = ''
+	eventError.classList.remove('inactive')
+	contenedor.classList.add('inactive')
+	tableContendBody.classList.add('inactive')
+	screenInicio.classList.remove('inactive')
 }
 function sendNombre(){	
 	if(nombreAbuscar !== nombreData){
 		contenedor.classList.remove('inactive')
 		screenInicio.classList.add('inactive')
-		contexto1.clearRect(0,0,800,600)
+		removeCanvas()
 		nombreData = nombreAbuscar
 		tableContendBody.classList.remove('inactive')
 		contendHeadNombre.innerText = nombreAbuscar
@@ -116,20 +192,24 @@ function sendNombre(){
 		graficoSalario()
 		addTableDataDown()
 	}
+}
 
+function removeCanvas(){
+	contexto1.clearRect(0,0,800,600)
+	contexto2.clearRect(0,0,800,600)
+	contexto3.clearRect(0,0,800,600)
+	contexto4.clearRect(0,0,800,600)
+	contexto5.clearRect(0,0,800,600)
 }
 
 function graficoSalario(){
 	if(activaCanvasSalario == true){
-		contexto2.clearRect(0,0,800,600)
-		contexto3.clearRect(0,0,800,600)
-		contexto4.clearRect(0,0,800,600)
-		contexto5.clearRect(0,0,800,600)
+		removeCanvas()
 		contextoCanvas = contexto1
 		cuadroEstadistico(year,salario)
 		dibujarEstadisticaData(year,salario,'red')
 		activaCanvasSalario = false
-	  activaCanvasImpusto = true
+	 	activaCanvasImpusto = true
 		activaCanvasEsSalud = true
 		activaCanvasOnpAfp = true
 		activaCanvasAllRetencion = true
@@ -137,10 +217,7 @@ function graficoSalario(){
 }
 function graficoImpuesto(){
 	if(activaCanvasImpusto == true){
-		contexto1.clearRect(0,0,800,600)
-		contexto3.clearRect(0,0,800,600)
-		contexto4.clearRect(0,0,800,600)
-		contexto5.clearRect(0,0,800,600)
+		removeCanvas()
 		contextoCanvas = contexto2
 		cuadroEstadistico(year,impuesto)
 		dibujarEstadisticaData(year,impuesto,'blue')
@@ -153,10 +230,7 @@ function graficoImpuesto(){
 }
 function graficoOnpAfp(){
 	if(activaCanvasOnpAfp == true){
-		contexto1.clearRect(0,0,800,600)
-		contexto2.clearRect(0,0,800,600)
-		contexto4.clearRect(0,0,800,600)
-		contexto5.clearRect(0,0,800,600)
+		removeCanvas()
 		contextoCanvas = contexto3
 		const onpAfpArray = []
 		for(a of onpAfp){
@@ -174,10 +248,7 @@ function graficoOnpAfp(){
 }
 function graficoEsSalud(){
 	if(activaCanvasEsSalud == true){
-		contexto1.clearRect(0,0,800,600)
-		contexto2.clearRect(0,0,800,600)
-		contexto3.clearRect(0,0,800,600)
-		contexto5.clearRect(0,0,800,600)
+		removeCanvas()
 		contextoCanvas = contexto4
 		cuadroEstadistico(year,seguroSalud)
 		dibujarEstadisticaData(year,seguroSalud,'green')
@@ -188,12 +259,24 @@ function graficoEsSalud(){
 		activaCanvasAllRetencion = true
 	}
 }
+function graficarEmpresaData(name){
+	removeCanvas()
+	let array = []
+	let arrayFinal = []
+	contextoCanvas = contexto6
+	year = CalculosEstadisticos.retencionGeneral(nombreAbuscar)[3]
+	for(a of Object.values(dataEmpresa[name])){
+		array.push(a.length)
+	}
+	for(i=0;i<array.reduce((a,b)=>Math.max(a,b));i++){
+		arrayFinal.push(i+1)
+	}
+	cuadroEstadistico(year,arrayFinal)
+	dibujarEstadisticaData(year,array,'white')
+}
 function graficoAll(){
 	if(activaCanvasAllRetencion == true){
-		contexto1.clearRect(0,0,800,600)
-		contexto2.clearRect(0,0,800,600)
-		contexto3.clearRect(0,0,800,600)
-		contexto4.clearRect(0,0,800,600)
+		removeCanvas()
 		contextoCanvas = contexto5
 		bloqueadorDataAll = false
 
@@ -340,6 +423,7 @@ function addOnpArray(array){
 		addData((a*12).toFixed(2))
 	}
 }
+
 // --------------------- estadistico en canvas----------------
 
 // -- getContext -- retorna un constesto de dibujo en el lienzo
@@ -349,6 +433,7 @@ const contexto2 = lienzo.getContext('2d')
 const contexto3 = lienzo.getContext('2d')
 const contexto4 = lienzo.getContext('2d')
 const contexto5 = lienzo.getContext('2d')
+const contexto6 = lienzo.getContext('2d')
 
 function dibujar(xinicial,yinicial,xfinal,yfinal,tall,color){
 	//beginPath --- metodo que permite iniciar una nuevo trazo
