@@ -51,40 +51,46 @@ function selecionar(){
 selectionEmpresa.addEventListener('click', activeMainEmpresa)
 selectionPersonal.addEventListener('click', activeMainPersonal)
 function activeMainEmpresa(){
+	inicioClear()
 	checkempresa = true
-	removeClass()
 	listNameArrays(nombreEmpresa)
-	editUno.innerText = "Analisis del personal de la empresa empreada en el año"
+	editUno.innerText = "Analisis del personal de la empresa empleada en el año"
 	editDos.innerText = "basado en lo general de la epleabilidad de las empresa"
 	editTres.innerText = "Escriba un nombre de la empresa"
-	botonControl.classList.add('inactive')
-	leyendaGrafica.classList.add('inactive')
 	selectionEmpresa.style.backgroundColor = "#deb887"
 	selectionEmpresa.style.color = "black"
 	selectionPersonal.style.backgroundColor = "black"
 	selectionPersonal.style.color = "white"
+	botonControl.classList.add('ver-elemento')
+	leyendaGrafica.classList.add('ver-elemento')
 }
 function activeMainPersonal(){
+	inicioClear()
 	checkempresa = false
-	removeClass()
 	listNameArrays(nombresLista)
 	editUno.innerText = "Analisis de cuanto retiene la empresa a los trabajadores"
 	editDos.innerText = "Esta basodo en lo que la empresa reduce a los trabajadores por concepto de impuesto, salud y de jubilacion"
 	editTres.innerText = "Escriba uno de los mombres existentes, se le mostrar una estadistica, gracias"
-	botonControl.classList.remove('inactive')
-	leyendaGrafica.classList.remove('inactive')
+	botonControl.classList.remove('ver-elemento')
+	leyendaGrafica.classList.remove('ver-elemento')
 	selectionPersonal.style.backgroundColor = "#deb887"
 	selectionPersonal.style.color = "black"
 	selectionEmpresa.style.backgroundColor = "black"
 	selectionEmpresa.style.color = "white"
-
+}
+function inicioClear(){
+	contenedor.classList.add('inactive')
+	tableContendBody.classList.add('inactive')
+	screenInicio.classList.remove('inactive')
+	selectName.classList.add('inactive')
+	removeElemento(document.querySelectorAll(".nombre-empresa-persona"))
+	removeElemento(document.querySelectorAll(".optionNameItens"))
 }
 
 const dataEmpresa = CalculosEstadisticos.dataGeneralEmpresa()
 
 let contextoCanvas
 let arraycomplete
-let year
 let compania
 let salario
 let impuesto
@@ -100,15 +106,14 @@ let bloqueadorDataAll = true
 let nombreAbuscar
 let cambioTabla
 let checkempresa
+let year
+
 
 const nombresLista = []
 const nombreEmpresa = Object.keys(dataEmpresa)
 
 for(i of personal){
 	nombresLista.push(i.name)
-}
-function removeClass(){
-	removeElemento(document.querySelectorAll(".nombre-empresa-persona"))
 }
 function removeElemento(element){
 	element.forEach(i=>i.remove())
@@ -121,6 +126,7 @@ function listNameArrays(arrayName){
 		nombresExistentes.appendChild(nombre)
 	
 		const crearElementoName = document.createElement('option')
+		crearElementoName.classList.add('optionNameItens')
 		selectName.appendChild(crearElementoName)
 		crearElementoName.innerText = a
 	}
@@ -153,6 +159,7 @@ function validacion(){
 		itemNombre = personal
 		for(i of itemNombre){
 			if(i.name == nombreAbuscar){
+				console.log(nombreAbuscar)
 				removeCanvas()
 				imputBuscar.value = ''
 				cambioTabla = i.seguroVida
@@ -182,7 +189,6 @@ function sendNombre(){
 		nombreData = nombreAbuscar
 		tableContendBody.classList.remove('inactive')
 		contendHeadNombre.innerText = nombreAbuscar
-		year = CalculosEstadisticos.retencionGeneral(nombreAbuscar)[3]
 		compania = CalculosEstadisticos.retencionGeneral(nombreAbuscar)[4]
 		salario = CalculosEstadisticos.retencionGeneral(nombreAbuscar)[5]
 		impuesto = CalculosEstadisticos.retencionGeneral(nombreAbuscar)[0]
@@ -193,7 +199,7 @@ function sendNombre(){
 		addTableDataDown()
 	}
 }
-
+year = CalculosEstadisticos.retencionGeneral(nombreAbuscar)[3]
 function removeCanvas(){
 	contexto1.clearRect(0,0,800,600)
 	contexto2.clearRect(0,0,800,600)
@@ -264,7 +270,6 @@ function graficarEmpresaData(name){
 	let array = []
 	let arrayFinal = []
 	contextoCanvas = contexto6
-	year = CalculosEstadisticos.retencionGeneral(nombreAbuscar)[3]
 	for(a of Object.values(dataEmpresa[name])){
 		array.push(a.length)
 	}

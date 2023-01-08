@@ -59,6 +59,9 @@ header{
     align-items: center;
     color: rgb(255, 230, 0);
 }
+.ver-elemento{
+    visibility: hidden;
+}
 .input-buscar{
     width: 250px;
     height: 35px;
@@ -69,6 +72,7 @@ header{
     color: var(--color-letter);
 }
 .input-botton{
+    z-index: 100;
     width: 100px;
     height: 50px;
     background-color: rgb(36, 36, 36);
