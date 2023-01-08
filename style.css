@@ -11,7 +11,7 @@
     display: none;
 }
 body{
-    background-color: rgb(27, 27, 27);
+    background-color: rgb(125, 128, 131);
 }
 .container-selection{
     position: absolute;
@@ -40,7 +40,7 @@ header{
     top: 0;
     width: 100%;
     height: 100px;
-    background-color: black;
+    background-color: rgb(86, 106, 134);
     display: flex;
     justify-content: center;
     align-items: center;
